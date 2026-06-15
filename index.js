@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
@@ -5,9 +6,9 @@ const app = express();
 app.use(cors());
 
 // THE KILLSWITCH VARIABLE
-// Set to true to allow frontend-backend connection
-// Set to false to disable frontend-backend connection
-const IS_BACKEND_ACTIVE = true;
+// Default to true if not specified in .env to prevent accidental downtime
+const IS_BACKEND_ACTIVE = process.env.IS_BACKEND_ACTIVE === 'false' ? false : true;
+
 
 app.get('/status', (req, res) => {
     res.json({
